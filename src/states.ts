@@ -12,6 +12,12 @@ function isQuote(character: string): character is QuoteCharacter {
 
 const TAG_START = "<";
 const TAG_END = ">";
+const TAG_START2 = "[";
+const TAG_END2 = "]";
+const TAG_START3 = "{";
+const TAG_END3 = "}";
+const TAG_START4 = "^==";
+const TAG_END4 = "==$";
 
 const ENCODED_TAG_START = "&lt;";
 const ENCODED_TAG_END = "&gt;";
@@ -86,7 +92,7 @@ export class InTagNameState implements State {
         }
 
         if (isSpace(character)) {
-            if (this.isNameBufferAnAllowedTag()) {
+            if (this.x()) {
                 transition(new InTagState(TagMode.Allowed, this.options));
 
                 return TAG_START + (this.isClosingTag ? "/" : "") + this.nameBuffer + character;
